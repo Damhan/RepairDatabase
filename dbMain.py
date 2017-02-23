@@ -24,15 +24,51 @@ def dynamic_data_entry():
 
     conn.commit()
 
+def get_table(t):
+    c.execute("SELECT * FROM {} ".format(t))
+    data = c.fetchall()
+    for d in data:
+        print(d)
 
-create_table()
-print("Press enter to begin inserting values.")
-print("Please enter values in the form 'phoneId(int) phoneBrand(str) phonemodel(str) buyPrice(int) repairCost(int) saleTarget(int)'")
-inputting = input()
-while inputting != "done":
-    dynamic_data_entry()
-    print("When you are done inputting values, please enter 'done', otherwise press enter")
+
+def table_insertion():
+    print("Press enter to begin inserting values.")
+    print("Please enter values in the form 'phoneId(int) phoneBrand(str) phonemodel(str) buyPrice(int) repairCost(int) saleTarget(int)'")
     inputting = input()
+    while inputting != "done":
+        dynamic_data_entry()
+        print("When you are done inputting values, please enter 'done', otherwise press enter")
+        inputting = input()
 
-c.close()
-conn.close()
+def table_viewing():
+    print("Enter the name of the table you would like to view")
+    tableChoice = input()
+    get_table(tableChoice)
+
+
+def main():
+    create_table()
+    running = True
+
+    while running:
+        print("To insert values into a table press: 'i'")
+        print("To view a table, press: 'v'")
+        operationSelection = input()
+        if operationSelection.lower() == "i":
+            table_insertion()
+        elif operationSelection.lower() =="v":
+            table_viewing()
+        print("Do you want to quit?: y/n")
+        answer = input().lower()
+        if answer == "n":
+            running = True
+        else:
+            running = False
+        
+
+    c.close()
+    conn.close()
+
+
+if __name__ == "__main__":
+    main()
