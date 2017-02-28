@@ -56,8 +56,7 @@ def phone_history_insertion(phoneInfo):
 	#set up the variables to pass
 	phoneInfo = phoneInfo[0]
 	phoneId = phoneInfo[0]
-	date = d.datetime.today()
-	print(phoneInfo)
+	date = d.date.today()
 	buyP = phoneInfo[3]
 	repairP = phoneInfo[4]
 	sellP = phoneInfo[5]
@@ -66,6 +65,7 @@ def phone_history_insertion(phoneInfo):
 	c.execute("INSERT INTO phoneHistory (phoneId, date,buyP,repairP,sellP,profit)  VALUES (?,?,?,?,?,?)",
 	(phoneId,date,buyP,repairP,sellP,profit))
 	print("Adding to history...")
+	conn.commit()
 	print("Added!")
 
 
